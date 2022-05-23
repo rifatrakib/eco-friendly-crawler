@@ -9,9 +9,9 @@ def invoke_spider(spider_name):
     subprocess.run(full_command, shell=True)
 
 
-def prepare_excel():
-    csvfile = 'data/toiletry-data.csv'
-    workbook = Workbook('data/toiletry-data.xlsx')
+def prepare_excel(name):
+    csvfile = f'data/{name}-data.csv'
+    workbook = Workbook(f'data/{name}-data.xlsx')
     worksheet = workbook.add_worksheet()
     with open(csvfile, 'rt', encoding='utf8') as f:
         reader = csv.reader(f)
@@ -22,5 +22,12 @@ def prepare_excel():
 
 
 if __name__ == '__main__':
-    invoke_spider('toiletry_spider')
-    prepare_excel()
+    spiders = {
+        'toiletry': False,
+        'fusion': False,
+    }
+    
+    for spider_name, crawl in spiders.items():
+        if crawl:
+            invoke_spider(f'{spider_name}_spider')
+            prepare_excel(spider_name)

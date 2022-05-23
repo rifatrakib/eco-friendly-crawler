@@ -16,3 +16,7 @@ class EcofriendlyItem(scrapy.Item):
     details = scrapy.Field(input_processor=MapCompose(stringify), output_processor=TakeFirst)
     categories = scrapy.Field(input_processor=MapCompose(stringify), output_processor=TakeFirst)
     tags = scrapy.Field(input_processor=MapCompose(stringify), output_processor=TakeFirst)
+
+
+class FusionItem(scrapy.Item):
+    pass
