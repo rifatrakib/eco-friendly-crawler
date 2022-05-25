@@ -25,7 +25,7 @@ if __name__ == '__main__':
     spiders = {
         'toiletry': False,
         'fusion': False,
-        # 'raepak': True,
+        'raepak': True,
     }
     
     for spider_name, crawl in spiders.items():
