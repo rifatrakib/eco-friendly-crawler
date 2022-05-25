@@ -23,3 +23,7 @@ class FusionItem(scrapy.Item):
     details = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst)
     uses = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst)
     specifications = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst)
+
+
+class RaepakItem(scrapy.Item):
+    pass
