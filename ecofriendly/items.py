@@ -26,4 +26,8 @@ class FusionItem(scrapy.Item):
 
 
 class RaepakItem(scrapy.Item):
-    pass
+    name = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst)
+    details = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst)
+    category = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst)
+    product_information = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst)
+    additional_information = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst)
