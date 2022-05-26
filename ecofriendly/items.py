@@ -1,4 +1,5 @@
 import scrapy
+from w3lib.html import remove_tags
 from itemloaders.processors import TakeFirst, MapCompose
 
 
@@ -26,8 +27,8 @@ class FusionItem(scrapy.Item):
 
 
 class RaepakItem(scrapy.Item):
-    name = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst)
-    details = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst)
-    category = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst)
-    product_information = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst)
-    additional_information = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst)
+    name = scrapy.Field(input_processor=MapCompose(remove_tags, str.strip), output_processor=TakeFirst())
+    category = scrapy.Field(input_processor=MapCompose(remove_tags, str.strip), output_processor=TakeFirst())
+    description = scrapy.Field(input_processor=MapCompose(remove_tags, str.strip), output_processor=TakeFirst())
+    dimension_sku = scrapy.Field(input_processor=MapCompose(remove_tags, str.strip), output_processor=TakeFirst())
+    product_information = scrapy.Field(input_processor=MapCompose(remove_tags, str.strip), output_processor=TakeFirst())
