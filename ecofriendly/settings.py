@@ -63,7 +63,9 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'ecofriendly.pipelines.CSVPipeline': 200,
+    'ecofriendly.pipelines.CSVPipeline': 100,
+    'ecofriendly.pipelines.JSONPipeline': 200,
+    'ecofriendly.pipelines.JSONLinesPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
