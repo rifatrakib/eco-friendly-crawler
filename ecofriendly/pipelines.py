@@ -35,7 +35,7 @@ class CSVPipeline:
     
     def spider_opened(self, spider):
         formatted_spider_name = spider.name.replace('_', '-').replace('-spider', '')
-        self.file = open(f'data/{formatted_spider_name}-data.csv', 'w+b')
+        self.file = open(f'data/csv/{formatted_spider_name}-data.csv', 'w+b')
         self.exporter = CsvItemExporter(self.file)
         self.exporter.start_exporting()
     
