@@ -28,19 +28,17 @@ def prepare_flattened_excel(name):
     workbook = f'data/excel/flattened-{name}-data.xlsx'
     with open(jsonfile, 'r') as f:
         json_data = f.read()[:-3] + '\n]'
-        print(json_data[-10:])
         data = json.loads(json_data)
-        for doc in data:
-            if 'product_information' in doc:
-                doc['product_information'] = json.loads(doc['product_information'])
-            if 'dimension_sku' in doc:
-                doc['dimension_sku'] = json.loads(doc['dimension_sku'])
+        if name == 'raepak':
+            for doc in data:
+                if 'product_information' in doc:
+                    doc['product_information'] = json.loads(doc['product_information'])
+                if 'dimension_sku' in doc:
+                    doc['dimension_sku'] = json.loads(doc['dimension_sku'])
     
     df = pd.json_normalize(data, sep='_')
     df.to_excel(workbook, index=False)
-    
-    with open(jsonfile, 'w') as f:
-        f.write(json.dumps(data))
+    df.to_json(jsonfile, orient='records', indent=4)
 
 
 if __name__ == '__main__':
@@ -48,6 +46,7 @@ if __name__ == '__main__':
         'toiletry': True,
         'fusion': True,
         'raepak': True,
+        'aptar': True,
     }
     
     for spider_name, crawl in spiders.items():
