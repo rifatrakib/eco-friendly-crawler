@@ -23,4 +23,24 @@ class AptarSpider(scrapy.Spider):
             yield scrapy.Request(url, method='POST', body=request_body, headers={'Content-Type': 'application/json; charset=UTF-8'})
     
     def parse(self, response):
-        yield response.json()
+        json_response = response.json()
+        for item in json_response['results'][0]['hits']:
+            product_id = item.get('distinctID', None)
+            name = item.get('title', None)
+            description = item.get('excerpt', None)
+            market = item.get('market', dict())
+            product_solution = item.get('product_solution', dict())
+            neck_finish = item.get('neck_finish', list())
+            regions = item.get('regions', list())
+            features_technologies = item.get('features_technologies', list())
+            
+            yield {
+                'product_id': product_id,
+                'name': name,
+                'description': description,
+                'market': ';'.join([','.join(value) for value in market.values()]),
+                'product_solution': ';'.join([','.join(value) for value in product_solution.values()]),
+                'neck_finish': ' x '.join([value for value in neck_finish]),
+                'regions': ','.join([value for value in regions]),
+                'features_technologies': ','.join([value for value in features_technologies]),
+            }
