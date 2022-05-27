@@ -1,5 +1,7 @@
 import json
 import scrapy
+from scrapy.loader import ItemLoader
+from ecofriendly.items import AptarItem
 
 
 class AptarSpider(scrapy.Spider):
@@ -24,23 +26,23 @@ class AptarSpider(scrapy.Spider):
     
     def parse(self, response):
         json_response = response.json()
-        for item in json_response['results'][0]['hits']:
-            product_id = item.get('distinctID', None)
-            name = item.get('title', None)
-            description = item.get('excerpt', None)
-            market = item.get('market', dict())
-            product_solution = item.get('product_solution', dict())
-            neck_finish = item.get('neck_finish', list())
-            regions = item.get('regions', list())
-            features_technologies = item.get('features_technologies', list())
+        for item_data in json_response['results'][0]['hits']:
+            product_id = item_data.get('distinctID', None)
+            name = item_data.get('title', None)
+            description = item_data.get('excerpt', None)
+            market = item_data.get('market', dict())
+            product_solution = item_data.get('product_solution', dict())
+            neck_finish = item_data.get('neck_finish', list())
+            regions = item_data.get('regions', list())
+            features_technologies = item_data.get('features_technologies', list())
             
-            yield {
-                'product_id': product_id,
-                'name': name,
-                'description': description,
-                'market': ';'.join([','.join(value) for value in market.values()]),
-                'product_solution': ';'.join([','.join(value) for value in product_solution.values()]),
-                'neck_finish': ' x '.join([value for value in neck_finish]),
-                'regions': ','.join([value for value in regions]),
-                'features_technologies': ','.join([value for value in features_technologies]),
-            }
+            item = ItemLoader(item=AptarItem(), selector=item_data)
+            item.add_value('product_id', product_id)
+            item.add_value('name', name)
+            item.add_value('description', description)
+            item.add_value('market', ';'.join([','.join(value) for value in market.values()]))
+            item.add_value('product_solution', ';'.join([','.join(value) for value in product_solution.values()]))
+            item.add_value('neck_finish', ' x '.join([value for value in neck_finish]))
+            item.add_value('regions', ','.join([value for value in regions]))
+            item.add_value('features_technologies', ','.join([value for value in features_technologies]))
+            yield item.load_item()

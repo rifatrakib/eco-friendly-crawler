@@ -49,3 +49,14 @@ class RaepakItem(scrapy.Item):
     description = scrapy.Field(input_processor=MapCompose(remove_tags, str.strip), output_processor=TakeFirst())
     dimension_sku = scrapy.Field(input_processor=MapCompose(table_to_dict), output_processor=TakeFirst())
     product_information = scrapy.Field(input_processor=MapCompose(column_to_dict), output_processor=TakeFirst())
+
+
+class AptarItem(scrapy.Item):
+    product_id = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst())
+    name = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst())
+    description = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst())
+    market = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst())
+    product_solution = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst())
+    neck_finish = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst())
+    regions = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst())
+    features_technologies = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst())
