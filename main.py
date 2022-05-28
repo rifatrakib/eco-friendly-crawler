@@ -47,6 +47,7 @@ if __name__ == '__main__':
         'fusion': True,
         'raepak': True,
         'aptar': True,
+        'rieke': True,
     }
     
     for spider_name, crawl in spiders.items():

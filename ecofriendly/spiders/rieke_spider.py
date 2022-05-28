@@ -1,4 +1,5 @@
 import scrapy
+from ecofriendly.items import RiekeItem
 
 
 class RiekeSpiderSpider(scrapy.Spider):
@@ -36,4 +37,8 @@ class RiekeSpiderSpider(scrapy.Spider):
                     values.append(f'{count}. {feats[i].strip()}')
                     count += 1
             specifications[key] = '\n'.join(values)
-        yield {'name': name, 'specifications': specifications}
+        
+        item = RiekeItem()
+        item['name'] = name
+        item['specifications'] = specifications
+        yield item
