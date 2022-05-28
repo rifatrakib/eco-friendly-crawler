@@ -63,4 +63,5 @@ class AptarItem(scrapy.Item):
 
 
 class RiekeItem(scrapy.Item):
-    name = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst())
+    name = scrapy.Field()
+    specifications = scrapy.Field()
