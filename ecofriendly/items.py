@@ -60,3 +60,7 @@ class AptarItem(scrapy.Item):
     neck_finish = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst())
     regions = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst())
     features_technologies = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst())
+
+
+class RiekeItem(scrapy.Item):
+    name = scrapy.Field(input_processor=MapCompose(str.strip), output_processor=TakeFirst())
