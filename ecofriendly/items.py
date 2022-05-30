@@ -65,3 +65,11 @@ class AptarItem(scrapy.Item):
 class RiekeItem(scrapy.Item):
     name = scrapy.Field()
     specifications = scrapy.Field()
+
+
+class VirospackItem(scrapy.Item):
+    name = scrapy.Field(input_processor=MapCompose(remove_tags), output_processor=TakeFirst())
+    code = scrapy.Field(input_processor=MapCompose(remove_tags), output_processor=TakeFirst())
+    data = scrapy.Field(output_processor=TakeFirst())
+    description = scrapy.Field(output_processor=TakeFirst())
+    notice = scrapy.Field(output_processor=TakeFirst())

@@ -48,6 +48,7 @@ if __name__ == '__main__':
         'raepak': True,
         'aptar': True,
         'rieke': True,
+        'virospack': True,
     }
     
     for spider_name, crawl in spiders.items():
